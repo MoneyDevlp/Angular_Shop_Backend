@@ -44,6 +44,8 @@ public interface ProductService {
 
 	long findProductSize();
 
+	List<Product> findAllProduct();
+
 
 
 

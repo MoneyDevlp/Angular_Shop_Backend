@@ -1,6 +1,8 @@
 package com.app.tclothes.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,35 +12,42 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @SuppressWarnings("serial")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "orderdetails")
-public class OrderDetail implements Serializable{
+@Table(name = "Comments")
+public class Comment implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long orderDetailId;
+	Long commentId;
 	
-	String name;
+	String content;
 	
-	String imageUrl;
+	@CreationTimestamp
+	private LocalDateTime dateCreated;
 	
-	Integer quantity;
+	@UpdateTimestamp
+	private LocalDateTime lastUpdated;
 	
-	Double unitPrice;
+	@ColumnDefault("0")
+    private int deleteFlag;
 	
 	@ManyToOne
 	@JoinColumn(name = "productId")
 	Product product;
 	
 	@ManyToOne
-	@JoinColumn(name = "orderId")
-	Order order;
+	@JoinColumn(name = "id")
+	Account account;
 }

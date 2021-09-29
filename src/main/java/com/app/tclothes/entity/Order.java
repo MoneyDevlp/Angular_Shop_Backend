@@ -1,8 +1,10 @@
 package com.app.tclothes.entity;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,8 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,14 +36,38 @@ public class Order implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long orderId;
-	@Temporal(TemporalType.DATE)
-	Date orderDate;
+	
+	String orderTrackingNumber;
+	
+	int totalQuantity;
+	
+	BigDecimal totalPrice;
+	
+	Integer status;
+	
+	@CreationTimestamp
+	private LocalDateTime dateCreated;
+	
+	@UpdateTimestamp
+	private LocalDateTime lastUpdated;
+	
 	String adress;
+	
 	@ManyToOne
 	@JoinColumn(name = "id")
 	Account account;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
-	List<OrderDetail> orderDetails;
+	Set<OrderDetail> orderDetails;
+	
+	public void add(OrderDetail orderDetail) {
+		if (orderDetail != null) {
+			if (orderDetails == null) {
+				orderDetails = new HashSet<>();
+			}
+			orderDetail.setOrder(this);
+			orderDetails.add(orderDetail);
+		}
+	}
 }

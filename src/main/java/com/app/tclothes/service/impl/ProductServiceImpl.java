@@ -131,6 +131,11 @@ public class ProductServiceImpl implements ProductService{
 	public long findProductSize() {
 		return productDao.findProductSize();
 	}
+
+	@Override
+	public List<Product> findAllProduct() {
+		return productDao.findAllProduct();
+	}
 	
 	
 	
