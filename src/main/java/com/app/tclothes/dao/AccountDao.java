@@ -19,4 +19,5 @@ public interface AccountDao extends JpaRepository<Account, Integer>{
 	
 	@Query("SELECT ac FROM Account ac WHERE ac.id=?1 and ac.deleteFlag=0")
     Account findAccountByIdAndFlag(Integer id);
+	
 }

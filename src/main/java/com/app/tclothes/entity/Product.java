@@ -14,7 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
@@ -73,6 +72,10 @@ public class Product implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "product")
 	List<Comment> comments;
+	
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "product",cascade = CascadeType.ALL)
+//	List<OrderDetail> orderDetails;
 	
 	@ColumnDefault("0")
     private int deleteFlag;

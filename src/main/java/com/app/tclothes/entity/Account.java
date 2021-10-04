@@ -1,15 +1,12 @@
 package com.app.tclothes.entity;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -52,10 +49,18 @@ public class Account implements Serializable{
 	@ColumnDefault("0")
     private int deleteFlag;
 	
-	@OneToMany(mappedBy = "account")
-	private List<Comment> comments;
 	
-	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
-	private Set<Order> orders;
+	
+	
+	
+//	public void add(Order order) {
+//		if (order != null) {
+//			if (orders == null) {
+//				orders = new HashSet<>();
+//			}
+//			order.setAccount(this);
+//			orders.add(order);
+//		}
+//	}
 	
 }

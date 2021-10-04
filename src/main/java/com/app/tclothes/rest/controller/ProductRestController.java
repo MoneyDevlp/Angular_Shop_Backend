@@ -39,6 +39,11 @@ public class ProductRestController {
 		return ResponseEntity.ok(productService.findAllProduct());
 	}
 	
+	@GetMapping("productTop")
+	public ResponseEntity<List<Product>> getProductTop() {
+		return ResponseEntity.ok(productService.getProductTop());
+	}
+	
 	/* Hàm lấy tất cả sản phẩm có phân trang*/
 	
 	@GetMapping("productPage")

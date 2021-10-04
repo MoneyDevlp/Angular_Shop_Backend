@@ -16,7 +16,7 @@ public interface ProductDao extends JpaRepository<Product, Integer>{
 	@Query("SELECT p FROM Product p WHERE p.deleteFlag=0 ORDER BY p.productId DESC")
     Page<Product> findAllDesc(Pageable pageable);
 	
-	@Query("SELECT p FROM Product p WHERE p.deleteFlag=0")
+	@Query("SELECT p FROM Product p WHERE p.deleteFlag=0 ORDER BY p.productId DESC")
     List<Product> findAllProduct();
 	
 	@Query("SELECT p FROM Product p WHERE p.productId=?1 and p.deleteFlag=0")
@@ -24,6 +24,9 @@ public interface ProductDao extends JpaRepository<Product, Integer>{
 	
 	@Query("SELECT COUNT(p) FROM Product p WHERE p.deleteFlag=0")
 	long findProductSize();
+	
+	@Query(nativeQuery = true, value = "SELECT TOP 8 * FROM products WHERE delete_flag=0 ORDER BY unit_price DESC")
+	List<Product> getProductTop();
 	
 	@Query("SELECT p FROM Product p WHERE p.category.categoryId =?1")
 	List<Product> findProductByCategory(Integer categoryId);

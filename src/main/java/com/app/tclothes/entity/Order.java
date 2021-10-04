@@ -3,8 +3,8 @@ package com.app.tclothes.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -31,43 +31,46 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "Orders")
-public class Order implements Serializable{
-	
+public class Order implements Serializable {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long orderId;
-	
+
 	String orderTrackingNumber;
-	
+
 	int totalQuantity;
-	
+
 	BigDecimal totalPrice;
-	
+
 	Integer status;
-	
+
 	@CreationTimestamp
 	private LocalDateTime dateCreated;
-	
+
 	@UpdateTimestamp
 	private LocalDateTime lastUpdated;
-	
+
+	String phone;
+
 	String adress;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "id")
-	Account account;
+	Custommer custommer;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
-	Set<OrderDetail> orderDetails;
-	
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	List<OrderDetail> orderDetails;
+
 	public void add(OrderDetail orderDetail) {
 		if (orderDetail != null) {
 			if (orderDetails == null) {
-				orderDetails = new HashSet<>();
+				orderDetails = new ArrayList<>();
 			}
 			orderDetail.setOrder(this);
 			orderDetails.add(orderDetail);
+
 		}
 	}
 }

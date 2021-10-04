@@ -7,20 +7,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.app.tclothes.dao.LoginDao;
-import com.app.tclothes.entity.Login;
+import com.app.tclothes.dao.CustommerDao;
+import com.app.tclothes.entity.Custommer;
 
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	@Autowired
-	LoginDao loginDao;
+	CustommerDao loginDao;
 
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Login user = loginDao.findByUsername(username)
+		Custommer user = loginDao.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
 		return UserDetailsImpl.build(user);

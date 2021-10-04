@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.app.tclothes.entity.Login;
+import com.app.tclothes.entity.Custommer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UserDetailsImpl implements UserDetails{
@@ -19,6 +19,8 @@ public class UserDetailsImpl implements UserDetails{
 	private Long id;
 
 	private String username;
+	
+	private String fullname;
 
 	private String email;
 
@@ -27,23 +29,25 @@ public class UserDetailsImpl implements UserDetails{
 
 	private Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long id, String username, String email, String password,
+	public UserDetailsImpl(Long id, String username, String fullname, String email, String password,
 			Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.username = username;
+		this.fullname = fullname;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
 	}
 
-	public static UserDetailsImpl build(Login user) {
+	public static UserDetailsImpl build(Custommer user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 				.collect(Collectors.toList());
 
 		return new UserDetailsImpl(
 				user.getId(), 
-				user.getUsername(), 
+				user.getUsername(),
+				user.getFullname(),
 				user.getEmail(),
 				user.getPassword(), 
 				authorities);
@@ -60,6 +64,10 @@ public class UserDetailsImpl implements UserDetails{
 
 	public String getEmail() {
 		return email;
+	}
+	
+	public String getFullname() {
+		return fullname;
 	}
 
 	@Override

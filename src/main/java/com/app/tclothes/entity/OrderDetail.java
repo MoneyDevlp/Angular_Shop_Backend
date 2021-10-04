@@ -34,9 +34,10 @@ public class OrderDetail implements Serializable{
 	
 	Double unitPrice;
 	
-	@ManyToOne
-	@JoinColumn(name = "productId")
-	Product product;
+//	@ManyToOne
+//	@JoinColumn(name = "productId")
+//	Product product;
+	Long productId;
 	
 	@ManyToOne
 	@JoinColumn(name = "orderId")
