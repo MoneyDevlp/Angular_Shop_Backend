@@ -40,6 +40,7 @@ public class CommentServiceImpl implements CommentService{
 	private void convert(Comment comment, CommentRequest commentRequest) {
 		comment.setCommentId(commentRequest.getCommentId());
 		comment.setContent(commentRequest.getContent());
+		comment.setStar(commentRequest.getStar());
 		comment.setDeleteFlag(0);
 		comment.setProduct(productDao.getById(commentRequest.getProductId()));
 		comment.setCustommer(custommerDao.findUsername(commentRequest.getCustommer().getUsername()));

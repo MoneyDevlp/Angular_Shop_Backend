@@ -35,17 +35,17 @@ public class Custommer implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 
-	@NotBlank
+	@NotBlank(message = "Username is not null!")
 	String username;
 	
-	@NotBlank
+	@NotBlank(message = "Fullname is not null!")
 	String fullname;
 
-	@NotBlank
+	@NotBlank(message = "Email is not null!")
 	@Email
 	String email;
 
-	@NotBlank
+	@NotBlank(message = "Password is not null!")
 	String password;
 	
 	@ColumnDefault("0")

@@ -33,6 +33,9 @@ public class Comment implements Serializable{
 	
 	String content;
 	
+	@ColumnDefault("0")
+	Double star;
+	
 	@CreationTimestamp
 	private LocalDateTime dateCreated;
 	

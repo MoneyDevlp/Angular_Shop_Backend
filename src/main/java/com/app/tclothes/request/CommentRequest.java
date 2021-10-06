@@ -16,6 +16,7 @@ public class CommentRequest {
 	
 	Long commentId;
 	String content;
+	Double star;
 	LocalDateTime dateCreated;
 	LocalDateTime lastUpdated;
 	int deleteFlag;
@@ -25,6 +26,7 @@ public class CommentRequest {
 	public CommentRequest(Comment comment) {
 		this.commentId = comment.getCommentId();
 		this.content = comment.getContent();
+		this.star = comment.getStar();
 		this.dateCreated = comment.getDateCreated();
 		this.lastUpdated = comment.getLastUpdated();
 		this.deleteFlag = comment.getDeleteFlag();

@@ -15,7 +15,7 @@ import com.app.tclothes.service.ProductService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/statistics")
+@RequestMapping("/rest/")
 public class StatisticsRestController {
 	
 	@Autowired
@@ -26,7 +26,7 @@ public class StatisticsRestController {
 //		return productService.getInventoryByCategory();
 //	}
 	
-	@GetMapping()
+	@GetMapping("reportByCategory")
 	public List<Object[]> getReportByCategorys(){
 		return productService.getReportByCategory();
 	}
@@ -38,7 +38,7 @@ public class StatisticsRestController {
 		return productService.getProductByDay(day, month, year);
 	}
 	
-	@GetMapping("{enteredDate}")
+	@GetMapping("reportProduct/{enteredDate}")
 	public List<Object[]> getReportProductByEnteredDate(@PathVariable("enteredDate") java.sql.Date enteredDate) {
 		return productService.getProductByEnteredDate(enteredDate);
 	}
