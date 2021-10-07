@@ -21,11 +21,6 @@ public class CategoryServiceImpl implements CategoryService{
 	CategoryDao categoryDao;
 
 	@Override
-	public <S extends Category> S save(S entity) {
-		return categoryDao.save(entity);
-	}
-
-	@Override
 	public List<Category> findAll() {
 		return categoryDao.findAllDescNoPage();
 	}
@@ -35,11 +30,6 @@ public class CategoryServiceImpl implements CategoryService{
 		return categoryDao.findById(id);
 	}
 
-	@Override
-	public void deleteById(Integer id) {
-		categoryDao.deleteById(id);
-	}
-
 
 	@Override
 	public long getAllCategorySize(){
@@ -47,9 +37,9 @@ public class CategoryServiceImpl implements CategoryService{
     }
 	
 	@Override
-	public List<Category> getAllCategories(int page,int size){
+	public Page<Category> getAllCategories(int page,int size){
         Pageable pageable = PageRequest.of(page,size);
-        return categoryDao.findAllDesc(pageable).getContent();
+        return categoryDao.findAllDesc(pageable);
     }
 
 	@Override
@@ -78,6 +68,12 @@ public class CategoryServiceImpl implements CategoryService{
 	@Override
 	public long findCategorySize() {
 		return categoryDao.findCategorySize();
+	}
+
+	@Override
+	public Page<Category> findCategoryByNameAndPageDesc(String name, int page,int size) {
+		Pageable pageable = PageRequest.of(page,size);
+		return categoryDao.findCategoryByNameAndPageDesc(name, pageable);
 	}
 	
 	

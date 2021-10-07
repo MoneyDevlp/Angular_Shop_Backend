@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.Errors;
@@ -52,8 +53,13 @@ public class CustommerRestController {
 	PasswordEncoder encoder;
 	
 	@GetMapping("custommersPage")
-	public ResponseEntity<List<Custommer>> findAllCustommer(@RequestParam int page, @RequestParam int size) {
+	public ResponseEntity<Page<Custommer>> findAllCustommer(@RequestParam int page, @RequestParam int size) {
 		return ResponseEntity.ok(custommerService.findAllCustommer(page, size));
+	}
+	
+	@GetMapping("custommerSearchAndPage")
+	public ResponseEntity<Page<Custommer>> getCustommerSearchAndPage(@RequestParam String fullname, @RequestParam int page, @RequestParam int size) {
+		return ResponseEntity.ok(custommerService.findCustommerByNameAndPage(fullname, page, size));
 	}
 	
 	@GetMapping("custommerSize")

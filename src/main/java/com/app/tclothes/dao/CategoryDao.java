@@ -18,6 +18,9 @@ public interface CategoryDao extends JpaRepository<Category, Integer>{
 	@Query("SELECT c FROM Category c WHERE c.deleteFlag=0 ORDER BY c.categoryId DESC")
     Page<Category> findAllDesc(Pageable pageable);
 	
+	@Query("SELECT c FROM Category c WHERE c.deleteFlag=0 AND c.name LIKE %?1% ORDER BY c.categoryId DESC")
+    Page<Category> findCategoryByNameAndPageDesc(String name, Pageable pageable);
+	
 	@Query("SELECT c FROM Category c WHERE c.deleteFlag=0")
     List<Category> findAllDescNoPage();
 	

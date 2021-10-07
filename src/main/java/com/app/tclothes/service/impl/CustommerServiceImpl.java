@@ -3,6 +3,7 @@ package com.app.tclothes.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,9 @@ public class CustommerServiceImpl implements CustommerService{
 	CustommerDao custommerDao;
 
 	@Override
-	public List<Custommer> findAllCustommer(int page,int size) {
+	public Page<Custommer> findAllCustommer(int page,int size) {
 		Pageable pageable = PageRequest.of(page,size);
-		return custommerDao.findAllCustommer(pageable).getContent();
+		return custommerDao.findAllCustommer(pageable);
 	}
 
 	@Override
@@ -41,6 +42,12 @@ public class CustommerServiceImpl implements CustommerService{
 	@Override
 	public List<Object[]> findOrderByCustommer(String username) {
 		return custommerDao.findOrderByCustommer(username);
+	}
+
+	@Override
+	public Page<Custommer> findCustommerByNameAndPage(String fullname, int page,int size) {
+		Pageable pageable = PageRequest.of(page,size);
+		return custommerDao.findCustommerByNameAndPage(fullname, pageable);
 	}
 	
 	

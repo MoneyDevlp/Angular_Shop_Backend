@@ -10,15 +10,12 @@ import com.app.tclothes.entity.Category;
 
 public interface CategoryService {
 
-	void deleteById(Integer id);
 
 	Optional<Category> findById(Integer id);
 
 	List<Category> findAll();
 
-	<S extends Category> S save(S entity);
-
-	List<Category> getAllCategories(int page, int size);
+	Page<Category> getAllCategories(int page, int size);
 
 	long getAllCategorySize();
 
@@ -31,6 +28,8 @@ public interface CategoryService {
 	Category findCategoryByIdAndFlag(Integer categoryId);
 
 	long findCategorySize();
+
+	Page<Category> findCategoryByNameAndPageDesc(String name, int page, int size);
 
 
 }

@@ -19,6 +19,13 @@ public interface ProductDao extends JpaRepository<Product, Integer>{
 	@Query("SELECT p FROM Product p WHERE p.deleteFlag=0 ORDER BY p.productId DESC")
     List<Product> findAllProduct();
 	
+	@Query("SELECT p FROM Product p WHERE p.deleteFlag=0 AND p.name LIKE %?1% ORDER BY p.productId DESC")
+    Page<Product> findProductByNameAndPage(String name, Pageable pageable);
+	
+	@Query("SELECT p FROM Product p INNER JOIN Category c ON p.category.categoryId = c.categoryId "
+			+ "WHERE p.deleteFlag=0 AND c.categoryId=?1")
+    Page<Product> findProductByCategory(Integer categoryId, Pageable pageable);
+	
 	@Query("SELECT p FROM Product p WHERE p.productId=?1 and p.deleteFlag=0")
 	Product findProductByIdAndFlag(Integer productId);
 	

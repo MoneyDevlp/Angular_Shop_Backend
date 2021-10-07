@@ -30,6 +30,10 @@ public interface CustommerDao extends JpaRepository<Custommer, Long>{
 	Page<Custommer> findAllCustommer(Pageable pageable);
 	
 	@Query(nativeQuery = true,value = "SELECT * FROM custommers "
+			+ "INNER JOIN login_roles ON custommers.id = login_roles.user_id WHERE login_roles.role_id=3 AND custommers.delete_flag=0 AND custommers.fullname LIKE %?1% ORDER BY custommers.id DESC")
+	Page<Custommer> findCustommerByNameAndPage(String fullname, Pageable pageable);
+	
+	@Query(nativeQuery = true,value = "SELECT * FROM custommers "
 			+ "INNER JOIN login_roles ON custommers.id = login_roles.user_id WHERE login_roles.role_id=3 AND custommers.delete_flag=0 AND custommers.id=?1")
 	Custommer findCustommersByIdAndFlag(Long id);
 	

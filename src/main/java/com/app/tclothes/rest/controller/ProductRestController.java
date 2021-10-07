@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,10 +35,10 @@ public class ProductRestController {
 	
 	/* Hàm lấy tất cả sản phẩm */
 	
-	@GetMapping("listProduct")
-	public ResponseEntity<List<Product>> getAll(){
-		return ResponseEntity.ok(productService.findAllProduct());
-	}
+//	@GetMapping("listProduct")
+//	public ResponseEntity<List<Product>> getAll(){
+//		return ResponseEntity.ok(productService.findAllProduct());
+//	}
 	
 	@GetMapping("productTop")
 	public ResponseEntity<List<Product>> getProductTop() {
@@ -47,8 +48,18 @@ public class ProductRestController {
 	/* Hàm lấy tất cả sản phẩm có phân trang*/
 	
 	@GetMapping("productPage")
-	public ResponseEntity<List<Product>> getAll(@RequestParam int page,@RequestParam int size){
+	public ResponseEntity<Page<Product>> getAll(@RequestParam int page,@RequestParam int size){
 		return ResponseEntity.ok(productService.getAllProducts(page, size));
+	}
+	
+	@GetMapping("productSearchAndPage")
+	public ResponseEntity<Page<Product>> getProductSearchAndPage(@RequestParam String name, @RequestParam int page,@RequestParam int size){
+		return ResponseEntity.ok(productService.findProductByNameAndPageDesc(name, page, size));
+	}
+	
+	@GetMapping("productByCategory")
+	public ResponseEntity<Page<Product>> getProductByCategory(@RequestParam Integer categoryId, @RequestParam int page,@RequestParam int size){
+		return ResponseEntity.ok(productService.findProductByCategory(categoryId, page, size));
 	}
 	
 	/* Hàm lấy độ dài của sản phẩm*/

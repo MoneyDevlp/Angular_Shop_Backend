@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+
 import com.app.tclothes.entity.Product;
 import com.app.tclothes.entity.Report;
 import com.app.tclothes.request.ProductRequest;
@@ -18,7 +20,7 @@ public interface ProductService {
 
 	<S extends Product> S save(S entity);
 
-	List<Product> getAllProducts(int page, int size);
+	Page<Product> getAllProducts(int page, int size);
 
 	long getAllProductSize();
 
@@ -47,6 +49,10 @@ public interface ProductService {
 	List<Product> findAllProduct();
 
 	List<Product> getProductTop();
+
+	Page<Product> findProductByNameAndPageDesc(String name, int page, int size);
+
+	Page<Product> findProductByCategory(Integer categoryId, int page, int size);
 
 
 

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -59,10 +60,14 @@ public class CategoryRestController {
 	/* Hàm lấy tất cả loại hàng có phân trang */
 
 	@GetMapping("categoryPage")
-	public ResponseEntity<List<Category>> getAll(@RequestParam int page, @RequestParam int size) {
+	public ResponseEntity<Page<Category>> getAll(@RequestParam int page, @RequestParam int size) {
 		return ResponseEntity.ok(categoryService.getAllCategories(page, size));
 	}
-
+	
+	@GetMapping("categorySearchAndPage")
+	public ResponseEntity<Page<Category>> getCategorySearchAndPage(@RequestParam String name, @RequestParam int page, @RequestParam int size) {
+		return ResponseEntity.ok(categoryService.findCategoryByNameAndPageDesc(name, page, size));
+	}
 	/* Hàm lấy độ dài của loại hàng */
 
 	@GetMapping("categorySize")
@@ -113,7 +118,7 @@ public class CategoryRestController {
 					return map;
 				}
 				else {
-					categoryService.save(category);
+					categoryService.saveCategory(category);
 					map.put("status", true);
 					return map;
 				}
@@ -143,7 +148,7 @@ public class CategoryRestController {
 					return map;
 				}
 				else {
-					categoryService.save(category);
+					categoryService.saveCategory(category);
 					map.put("status", true);
 					return map;
 				}

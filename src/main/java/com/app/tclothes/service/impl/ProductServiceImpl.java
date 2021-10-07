@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -58,9 +59,9 @@ public class ProductServiceImpl implements ProductService{
 	
 	
 	@Override
-	public List<Product> getAllProducts(int page,int size){
+	public Page<Product> getAllProducts(int page,int size){
         Pageable pageable = PageRequest.of(page,size);
-        return productDao.findAllDesc(pageable).getContent();
+        return productDao.findAllDesc(pageable);
     }
 	
 	@Override
@@ -98,7 +99,6 @@ public class ProductServiceImpl implements ProductService{
 		productDao.save(product);
 		
 	}
-	
 	
 	
 	@Override
@@ -140,6 +140,18 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public List<Product> getProductTop() {
 		return productDao.getProductTop();
+	}
+
+	@Override
+	public Page<Product> findProductByNameAndPageDesc(String name, int page,int size) {
+		Pageable pageable = PageRequest.of(page,size);
+		return productDao.findProductByNameAndPage(name, pageable);
+	}
+
+	@Override
+	public Page<Product> findProductByCategory(Integer categoryId, int page,int size) {
+		Pageable pageable = PageRequest.of(page,size);
+		return productDao.findProductByCategory(categoryId, pageable);
 	}
 	
 	
