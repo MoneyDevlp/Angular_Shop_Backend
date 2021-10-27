@@ -3,6 +3,8 @@ package com.app.tclothes.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -57,6 +59,14 @@ public class CategoryServiceImpl implements CategoryService{
 		Category c = categoryDao.findCategoryByIdAndFlag(categoryId);
 		c.setDeleteFlag(1);
 		categoryDao.save(c);
+	}
+	
+	@Override
+	@Transactional
+	public void deleteMultipleCategories(List<Integer> categoryIds) {
+		for(Integer	categoryId: categoryIds) {
+			categoryDao.deleteMultipleCategories(categoryId);
+		}
 	}
 	
 	@Override

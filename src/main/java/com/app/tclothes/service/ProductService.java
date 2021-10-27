@@ -54,7 +54,7 @@ public interface ProductService {
 
 	Page<Product> findProductByCategory(Integer categoryId, int page, int size);
 
-
+	void deleteMultipleProducts(List<Integer> productIds);
 
 
 

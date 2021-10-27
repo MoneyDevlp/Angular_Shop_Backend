@@ -1,8 +1,12 @@
 package com.app.tclothes.service.impl;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +24,7 @@ import com.app.tclothes.request.ProductRequest;
 import com.app.tclothes.service.ProductService;
 
 @Service
+
 public class ProductServiceImpl implements ProductService{
 	
 	@Autowired
@@ -75,7 +80,7 @@ public class ProductServiceImpl implements ProductService{
 		p.setDeleteFlag(1);
 		productDao.save(p);
 	}
-	
+
 	@Override
 	public void saveProduct(ProductRequest productRequest) {
 		Category category = categoryDao.findById(productRequest.getCategoryId()).get();
@@ -84,6 +89,14 @@ public class ProductServiceImpl implements ProductService{
 	}
 	
 	
+	@Override
+	@Transactional
+	public void deleteMultipleProducts(List<Integer> productIds) {
+		for(Integer	productId: productIds) {
+			productDao.deleteMultipleProducts(productId);
+		}
+	}
+
 	@Override
 	public void updateProduct(ProductRequest productRequest) {
 		Product product = productDao.findById(productRequest.getProductId()).get();
@@ -154,6 +167,16 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.findProductByCategory(categoryId, pageable);
 	}
 	
+	
+//	public Page<Product> findProductSortAndPage(Integer categoryId, int page,int size) {
+//		Pageable pageable = PageRequest.of(page,size);
+//		return productDao.findProductByCategory(categoryId, pageable);
+//	}
+//	
+//	public Page<Product> findProductByNameSortAndPage(String name, int page,int size) {
+//		Pageable pageable = PageRequest.of(page,size);
+//		return productDao.findProductByNameAndPage(name, pageable);
+//	}
 	
 	
 }

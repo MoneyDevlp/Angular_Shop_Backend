@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.tclothes.entity.Report;
 import com.app.tclothes.service.ProductService;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/rest/")
 public class StatisticsRestController {

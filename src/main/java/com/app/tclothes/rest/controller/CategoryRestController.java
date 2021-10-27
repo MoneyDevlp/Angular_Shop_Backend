@@ -187,4 +187,10 @@ public class CategoryRestController {
 		}
 		return map;
 	}
+	
+	@DeleteMapping("multipleCategories/{categoryIds}")
+	public ResponseEntity<?> deleteCategories(@PathVariable("categoryIds") List<Integer> categoryIds) {
+		categoryService.deleteMultipleCategories(categoryIds);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 }

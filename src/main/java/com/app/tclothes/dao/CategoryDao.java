@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.app.tclothes.entity.Category;
@@ -29,4 +30,8 @@ public interface CategoryDao extends JpaRepository<Category, Integer>{
 	
 	@Query("SELECT c FROM Category c WHERE c.categoryId=?1 and c.deleteFlag=0")
     Category findCategoryByIdAndFlag(Integer categoryId);
+	
+	@Modifying
+	@Query("Update Category c SET c.deleteFlag=1 WHERE c.categoryId IN ?1")
+	void deleteMultipleCategories(Integer categoryId);
 }
